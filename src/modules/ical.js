@@ -1,7 +1,10 @@
 import ical from "ical-generator";
 import moment from "moment-timezone";
 
-export default ({ title, datetime, duration, location }, timezone) => {
+export default (
+  { title, datetime, timestamp, duration, location, uid },
+  timezone
+) => {
   const day = moment.tz(
     parseInt(moment.tz(datetime * 1000, timezone).format("x")),
     "UTC"
@@ -13,9 +16,10 @@ export default ({ title, datetime, duration, location }, timezone) => {
       {
         start: day,
         end: day.add(duration, "minutes"),
-        timestamp: moment(),
         summary: title,
-        location
+        location,
+        uid,
+        timestamp: timestamp || moment()
       }
     ]
   }).toString();
