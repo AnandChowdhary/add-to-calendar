@@ -5,23 +5,29 @@
     <div>duration: {{event.duration}}</div>
     <div>location: {{event.location}}</div>
     <div class="options">
-      <button @click="iCalDownload">
-        <div class="icon"><FontAwesomeIcon :icon="[`fab`, `apple`]" /></div>
+      <button class="apple" @click="iCalDownload">
+        <div class="icon">
+          <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg">
+        </div>
         <div class="label">Apple<br>Calendar</div>
       </button>
-      <a :href="links.google" target="_blank">
-        <div class="icon"><FontAwesomeIcon :icon="[`fab`, `google`]" /></div>
+      <a class="google" :href="links.google" target="_blank">
+        <div class="icon">
+          <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg">
+        </div>
         <div class="label">Google<br>Calendar</div>
       </a>
-      <a :href="links.outlook" target="_blank">
-        <div class="icon"><FontAwesomeIcon :icon="[`fab`, `microsoft`]" /></div>
+      <a class="microsoft" :href="links.outlook" target="_blank">
+        <div class="icon">
+          <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Outlook.com_icon.svg">
+        </div>
         <div class="label">Microsoft<br>Outlook</div>
       </a>
-      <a :href="links.yahoo" target="_blank">
+      <a class="yahoo" :href="links.yahoo" target="_blank">
         <div class="icon"><FontAwesomeIcon :icon="[`fab`, `yahoo`]" /></div>
         <div class="label">Yahoo!<br>Calendar</div>
       </a>
-      <button @click="iCalDownload">
+      <button class="ical" @click="iCalDownload">
         <div class="icon"><FontAwesomeIcon :icon="[`fas`, `calendar-check`]" /></div>
         <div class="label">Download<br>Invite (.ics)</div>
       </button>
@@ -32,20 +38,13 @@
 <script>
 import ct from "countries-and-timezones";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faApple,
-  faGoogle,
-  faMicrosoft,
-  faYahoo
-} from "@fortawesome/free-brands-svg-icons";
+import { faYahoo } from "@fortawesome/free-brands-svg-icons";
 import { faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-library.add(faApple, faGoogle, faMicrosoft, faYahoo, faCalendarCheck);
-const google = () =>
-  import(/* webpackChunkName: "google" */ "../modules/google");
-const outlook = () =>
-  import(/* webpackChunkName: "outlook" */ "../modules/outlook");
-const yahoo = () => import(/* webpackChunkName: "yahoo" */ "../modules/yahoo");
+library.add(faYahoo, faCalendarCheck);
+import google from "../modules/google";
+import outlook from "../modules/outlook";
+import yahoo from "../modules/yahoo";
 export default {
   data: () => {
     return {
@@ -117,6 +116,8 @@ export default {
   max-width: 720px;
   background-color: #fff;
   padding: 3rem;
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
 }
 .options {
   display: flex;
@@ -130,6 +131,7 @@ export default {
     color: inherit;
     text-decoration: none;
     text-align: center;
+    transition: 0.3s;
     padding: 1rem 0;
     border-radius: 0.25rem;
     &:hover {
@@ -138,7 +140,17 @@ export default {
   }
 }
 .icon {
-  font-size: 200%;
+  font-size: 2.4rem;
   margin-bottom: 0.5rem;
+  height: 3rem;
+  img {
+    height: 2.5rem;
+  }
+}
+.yahoo .icon {
+  color: #700097;
+}
+.ical .icon {
+  color: #788;
 }
 </style>

@@ -65,6 +65,8 @@ export default {
   max-width: 500px;
   margin: 10vh auto;
   background-color: #fff;
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
   padding: 3rem;
 }
 form {
