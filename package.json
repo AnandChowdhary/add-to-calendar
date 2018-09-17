@@ -33,7 +33,8 @@
     "vue-template-compiler": "^2.5.17"
   },
   "gitHooks": {
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "pre-push": "yarn deploy"
   },
   "lint-staged": {
     "*.js": [
