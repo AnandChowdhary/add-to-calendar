@@ -1,5 +1,6 @@
 <template>
   <div class="invite">
+    <div v-if="secure" class="secure">Secure Invite</div>
     <h1>{{event.title}}</h1>
     <!-- <div class="options info"> -->
       <!-- <div>1</div> -->
@@ -9,7 +10,7 @@
         <p><strong>Duration: </strong>{{event.duration}} minutes</p>
       <!-- </div> -->
     <!-- </div> -->
-    <div class="options">
+    <div class="options" style="margin-top: 2rem">
       <button class="apple" @click="iCalDownload">
         <div class="icon">
           <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg">
@@ -54,6 +55,7 @@ import yahoo from "../modules/yahoo";
 export default {
   data: () => {
     return {
+      secure: false,
       event: {
         title: "",
         datetime: "",
@@ -118,7 +120,12 @@ export default {
           this.event.duration +
           this.event.location
       );
-      if (calculatedHash !== this.event.md5) {
+      if (
+        this.event.md5 != "undefined" &&
+        window.location.protocol === "https:"
+      )
+        this.secure = true;
+      if (this.event.md5 != "undefined" && calculatedHash !== this.event.md5) {
         this.$router.replace("/");
       }
     }
@@ -132,7 +139,9 @@ export default {
 
 <style lang="scss" scoped>
 .invite {
+  position: relative;
   margin: 10vh auto;
+  overflow: hidden;
   max-width: 720px;
   background-color: #fff;
   padding: 3rem;
@@ -185,5 +194,15 @@ p {
       background: none;
     }
   }
+}
+.secure {
+  background-color: #27ae60;
+  position: absolute;
+  transform: rotate(-45deg);
+  color: #fff;
+  width: 20rem;
+  left: -6rem;
+  padding: 0.5rem 0;
+  top: 3rem;
 }
 </style>

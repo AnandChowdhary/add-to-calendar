@@ -4,11 +4,26 @@
   </div>
 </template>
 
+<script>
+export default {
+  mounted() {
+    if (
+      window.location.hostname !== "localhost" &&
+      window.location.protocol !== "https:"
+    ) {
+      window.location.protocol = "https";
+    }
+  }
+};
+</script>
+
+
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600");
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   text-align: center;
   color: #2c3e50;
 }

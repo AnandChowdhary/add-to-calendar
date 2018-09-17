@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "deploy": "yarn build && mv dist/index.html dist/200.html && echo calendarlink.surge.sh > dist/CNAME && surge dist/.",
+    "deploy": "yarn build && mv dist/index.html dist/200.html && echo addtocalendar.ga > dist/CNAME && surge dist/.",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e"
