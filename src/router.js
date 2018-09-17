@@ -17,5 +17,6 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "invite" */ "./views/Invite.vue")
     }
-  ]
+  ],
+  mode: "history"
 });

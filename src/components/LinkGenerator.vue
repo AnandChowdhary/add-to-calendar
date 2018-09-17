@@ -23,8 +23,8 @@
       </label>
       <h2>Your link</h2>
       <p>Copy and paste this link in an email or message to send this invitation to your guests:</p>
-      <pre>{{location.protocol}}//{{location.hostname}}{{location.port ? ":" + location.port : ""}}/#/{{urilize(title)}}/{{urilize(date)}}/{{urilize(time)}}</pre>
-      <a target="_blank" class="button" :href="`${location.protocol}//${location.hostname}${location.port ? ':' + location.port : ''}/#/${urilize(title)}/${urilize(date)}/${urilize(time)}`">Visit your invite link &rarr;</a>
+      <pre>{{location.protocol}}//{{location.hostname}}{{location.port ? ":" + location.port : ""}}/{{urilize(title)}}/{{urilize(date)}}/{{urilize(time)}}</pre>
+      <a target="_blank" class="button" :href="`${location.protocol}//${location.hostname}${location.port ? ':' + location.port : ''}/${urilize(title)}/${urilize(date)}/${urilize(time)}`">Visit your invite link &rarr;</a>
     </form>
   </div>
 </template>
