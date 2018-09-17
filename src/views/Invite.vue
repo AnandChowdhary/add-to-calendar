@@ -17,6 +17,7 @@ import ct from "countries-and-timezones";
 import google from "../modules/google";
 import outlook from "../modules/outlook";
 import yahoo from "../modules/yahoo";
+import ical from "../modules/ical";
 export default {
   data: () => {
     return {
@@ -28,7 +29,8 @@ export default {
       links: {
         google: "",
         outlook: "",
-        yahoo: ""
+        yahoo: "",
+        ical: ""
       }
     };
   },
@@ -51,6 +53,7 @@ export default {
             this.links.google = google(this.event, this.timezone);
             this.links.outlook = outlook(this.event, this.timezone);
             this.links.yahoo = yahoo(this.event, this.timezone);
+            this.links.ical = ical(this.event, this.timezone);
           })
           .catch(() => {})
       )

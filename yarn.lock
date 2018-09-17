@@ -4282,6 +4282,12 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
 
+ical-generator@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ical-generator/-/ical-generator-1.1.1.tgz#454e34034047f0ad2745a1ecec7ba867ec3bbad3"
+  dependencies:
+    moment-timezone "^0.5.17"
+
 iconv-lite@0.4.19:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
@@ -5925,7 +5931,7 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-moment-timezone@^0.5.21:
+moment-timezone@^0.5.17, moment-timezone@^0.5.21:
   version "0.5.21"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.21.tgz#3cba247d84492174dbf71de2a9848fa13207b845"
   dependencies:
