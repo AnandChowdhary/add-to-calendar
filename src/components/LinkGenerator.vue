@@ -4,35 +4,52 @@
     <p>Enter your event information below for a custom invitation link you can share with your guests.</p>
     <form>
       <label>
-        <span>Title</span>
+        <span>What's the event title?</span>
         <input v-model="title" type="text" placeholder="Coffee with Anand">
       </label>
       <label>
-        <span>Date and time</span>
+        <span>When is the event?</span>
         <input v-model="datetime" type="datetime-local">
       </label>
+      <p><small>Enter the event date and time in your local timezone.</small></p>
       <label>
-        <span>Duration (minutes)</span>
+        <span>How long is the event (in minutes)?</span>
         <input v-model="duration" type="number">
+      </label>
+      <label>
+        <span>Where is the event happening?</span>
+        <textarea v-model="location" placeholder="Enter the venue for this meeting"></textarea>
       </label>
       <h2>Your link</h2>
       <p>Copy and paste this link in an email or message to send this invitation to your guests:</p>
-      <pre>{{location.protocol}}//{{location.hostname}}{{location.port ? ":" + location.port : ""}}/{{urilize(title)}}/{{urilize(new Date(datetime).getTime() / 1000 || 0)}}/{{urilize(duration)}}</pre>
-      <a target="_blank" class="button" :href="`${location.protocol}//${location.hostname}${location.port ? ':' + location.port : ''}/${urilize(title)}/${urilize(new Date(datetime).getTime() / 1000 || 0)}/${urilize(duration)}`">Visit your invite link &rarr;</a>
+      <pre>{{url.protocol}}//{{url.hostname}}{{url.port ? ":" + url.port : ""}}/{{urilize(title || 'Event')}}/{{urilize(new Date(datetime).getTime() / 1000 || 0)}}/{{urilize(duration)}}/{{urilize(location)}}</pre>
+      <a target="_blank" class="button" :href="`${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}/${urilize(title || 'Event')}/${urilize(new Date(datetime).getTime() / 1000 || 0)}/${urilize(duration)}/${urilize(location)}`">Visit your invite link &rarr;</a>
     </form>
   </div>
 </template>
 
 <script>
+// https://gist.github.com/WebReflection/6076a40777b65c397b2b9b97247520f0
+Date.prototype.toDatetimeLocal = function toDatetimeLocal() {
+  const date = this,
+    ten = i => (i < 10 ? "0" : "") + i,
+    YYYY = date.getFullYear(),
+    MM = ten(date.getMonth() + 1),
+    DD = ten(date.getDate()),
+    HH = ten(date.getHours()),
+    II = ten(date.getMinutes());
+  return YYYY + "-" + MM + "-" + DD + "T" + HH + ":" + II;
+};
+
 export default {
   name: "LinkGenerator",
   data: () => {
     return {
       title: "",
-      datetime: "",
-      time: "",
-      duration: 0,
-      location: window.location
+      datetime: new Date().toDatetimeLocal(),
+      duration: 30,
+      location: "",
+      url: window.location
     };
   },
   methods: {
@@ -52,9 +69,14 @@ form {
   text-align: left;
   label {
     display: block;
-    margin-bottom: 1.5rem;
     span {
       font-weight: bold;
+    }
+    + label {
+      margin-top: 1.5rem;
+    }
+    + p {
+      margin-top: 0.25rem;
     }
   }
   button[type="submit"],
@@ -83,6 +105,11 @@ pre {
   margin-top: 0.35rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   line-height: 3rem;
+}
+textarea {
+  height: 5rem;
+  padding: 1rem;
+  line-height: 1.5;
 }
 pre {
   font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono",

@@ -3,7 +3,7 @@
     <div>title: {{event.title}}</div>
     <div>datetime: {{event.datetime}}</div>
     <div>duration: {{event.duration}}</div>
-    <div>timezone: {{event.timezone}}</div>
+    <div>location: {{event.location}}</div>
     <p><a target="_blank" :href="links.google">Add to your Google Calendar</a></p>
     {{links}}
     <p><button>Download iCal (.ics) file</button></p>
@@ -18,7 +18,7 @@ export default {
       event: {
         title: "",
         datetime: "",
-        timezone: ""
+        location: ""
       },
       links: {
         google: ""
@@ -33,8 +33,8 @@ export default {
   mounted() {
     this.event.title = this.unurize(this.$route.params.title);
     this.event.datetime = this.unurize(this.$route.params.datetime);
-    this.event.timezone = this.unurize(this.$route.params.timezone);
     this.event.duration = this.unurize(this.$route.params.duration);
+    this.event.location = this.unurize(this.$route.params.location);
     this.links.google = google(this.event);
   }
 };
