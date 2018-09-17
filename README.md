@@ -1,4 +1,7 @@
-# calendar-invitation
+# Add to Calendar
+
+[![GitHub](https://img.shields.io/github/license/anandchowdhary/add-to-calendar.svg)](https://github.com/AnandChowdhary/add-to-calendar/blob/master/LICENSE)
+[![Uptime Robot ratio (7 days)](https://img.shields.io/uptimerobot/ratio/m780985727-38a595cf3111cb30748a71bb.svg)](https://stats.uptimerobot.com/D8rrmsN6g)
 
 ## Project setup
 ```
