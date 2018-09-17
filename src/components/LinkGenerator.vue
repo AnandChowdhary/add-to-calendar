@@ -16,20 +16,25 @@
         <input v-model="time" type="time">
       </label>
       <label>
+        <span>Duration</span>
+        <input v-model="duration" type="number">
+      </label>
+      <label>
         <span>Timezone</span>
-        <select>
-          <option>UTC (+0:00)</option>
+        <select v-model="timezone">
+          <option v-for="(tz, index) in timezones" :key="index">{{tz}}</option>
         </select>
       </label>
       <h2>Your link</h2>
       <p>Copy and paste this link in an email or message to send this invitation to your guests:</p>
-      <pre>{{location.protocol}}//{{location.hostname}}{{location.port ? ":" + location.port : ""}}/{{urilize(title)}}/{{urilize(date)}}/{{urilize(time)}}</pre>
-      <a target="_blank" class="button" :href="`${location.protocol}//${location.hostname}${location.port ? ':' + location.port : ''}/${urilize(title)}/${urilize(date)}/${urilize(time)}`">Visit your invite link &rarr;</a>
+      <pre>{{location.protocol}}//{{location.hostname}}{{location.port ? ":" + location.port : ""}}/{{urilize(title)}}/{{urilize(date)}}/{{urilize(time)}}/{{urilize(duration)}}/{{urilize(timezone)}}</pre>
+      <a target="_blank" class="button" :href="`${location.protocol}//${location.hostname}${location.port ? ':' + location.port : ''}/${urilize(title)}/${urilize(date)}/${urilize(time)}/${urilize(duration)}/${urilize(timezone)}`">Visit your invite link &rarr;</a>
     </form>
   </div>
 </template>
 
 <script>
+import ct from "countries-and-timezones";
 export default {
   name: "LinkGenerator",
   data: () => {
@@ -37,8 +42,27 @@ export default {
       title: "",
       date: "",
       time: "",
-      location: window.location
+      timezone: "",
+      duration: 0,
+      location: window.location,
+      timezones: []
     };
+  },
+  mounted() {
+    const timezones = ct.getAllTimezones();
+    this.timezones = Object.keys(timezones);
+    fetch(
+      "https://api.ipgeolocation.io/ipgeo?apiKey=14aadc9992e34663be5676388611b3a4"
+    )
+      .then(response =>
+        response
+          .json()
+          .then(json => {
+            this.timezone = json.time_zone.name;
+          })
+          .catch(() => {})
+      )
+      .catch(() => {});
   },
   methods: {
     urilize(x) {

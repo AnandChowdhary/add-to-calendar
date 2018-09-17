@@ -12,7 +12,7 @@ export default new Router({
       component: Home
     },
     {
-      path: "/:title/:date/:time",
+      path: "/:title/:date/:time/:duration/:timezone",
       name: "invite",
       component: () =>
         import(/* webpackChunkName: "invite" */ "./views/Invite.vue")

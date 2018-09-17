@@ -2387,6 +2387,10 @@ cosmiconfig@^5.0.0, cosmiconfig@^5.0.2:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
+countries-and-timezones@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/countries-and-timezones/-/countries-and-timezones-1.0.1.tgz#478ea7051d0020e13a60cbe18154f69fcae91079"
+
 create-ecdh@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.3.tgz#c9111b6f33045c4697f144787f9254cdc77c45ff"
