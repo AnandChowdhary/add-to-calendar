@@ -1,9 +1,14 @@
 <template>
   <div class="invite">
-    <div>title: {{event.title}}</div>
-    <div>datetime: {{event.datetime}}</div>
-    <div>duration: {{event.duration}}</div>
-    <div>location: {{event.location}}</div>
+    <h1>{{event.title}}</h1>
+    <!-- <div class="options info"> -->
+      <!-- <div>1</div> -->
+      <!-- <div> -->
+        <p><strong>When: </strong>{{new Date(event.datetime * 1000).toLocaleString()}}</p>
+        <p><strong>Where: </strong>{{event.location}}</p>
+        <p><strong>Duration: </strong>{{event.duration}} minutes</p>
+      <!-- </div> -->
+    <!-- </div> -->
     <div class="options">
       <button class="apple" @click="iCalDownload">
         <div class="icon">
@@ -139,6 +144,9 @@ export default {
     }
   }
 }
+p {
+  font-size: 1.25rem;
+}
 .icon {
   font-size: 2.4rem;
   margin-bottom: 0.5rem;
@@ -152,5 +160,15 @@ export default {
 }
 .ical .icon {
   color: #788;
+}
+.info {
+  text-align: left;
+  margin-bottom: 2rem;
+  > * {
+    text-align: left;
+    &:hover {
+      background: none;
+    }
+  }
 }
 </style>
