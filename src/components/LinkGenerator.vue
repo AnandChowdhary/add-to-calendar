@@ -5,15 +5,15 @@
     <form>
       <label>
         <span>Title</span>
-        <input type="text" placeholder="Coffee with Anand">
+        <input v-model="title" type="text" placeholder="Coffee with Anand">
       </label>
       <label>
         <span>Date</span>
-        <input type="date">
+        <input v-model="date" type="date">
       </label>
       <label>
         <span>Time</span>
-        <input type="time">
+        <input v-model="time" type="time">
       </label>
       <label>
         <span>Timezone</span>
@@ -23,19 +23,31 @@
       </label>
       <h2>Your link</h2>
       <p>Copy and paste this link in an email or message to send this invitation to your guests:</p>
-      <pre>https://this-website.com/#/ejiqo/asdjiqweq0eqi/ej0ej09qe0w</pre>
-      <button type="submit">Share</button>
+      <pre>{{location.protocol}}//{{location.hostname}}:{{location.port}}/#/{{urilize(title)}}/{{urilize(date)}}/{{urilize(time)}}</pre>
+      <a target="_blank" class="button" :href="`${location.protocol}//${location.hostname}:${location.port}/#/${urilize(title)}/${urilize(date)}/${urilize(time)}`">Visit your invite link &rarr;</a>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: "LinkGenerator"
+  name: "LinkGenerator",
+  data: () => {
+    return {
+      title: "",
+      date: "",
+      time: "",
+      location: window.location
+    };
+  },
+  methods: {
+    urilize(x) {
+      return btoa(encodeURIComponent(x));
+    }
+  }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .hello {
   max-width: 500px;
@@ -50,8 +62,11 @@ form {
       font-weight: bold;
     }
   }
-  button[type="submit"] {
+  button[type="submit"],
+  .button {
     margin-top: 1rem;
+    text-decoration: none;
+    text-align: center;
     background-color: #333;
     color: #fff;
     font-weight: bold;
@@ -60,6 +75,7 @@ form {
 input,
 button,
 textarea,
+.button,
 select,
 pre {
   display: block;
@@ -77,7 +93,7 @@ pre {
   font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono",
     "Droid Sans Mono", "Source Code Pro", monospace;
   white-space: nowrap;
-  overflow: hidden;
+  overflow-x: auto;
   background-color: whitesmoke;
 }
 </style>
