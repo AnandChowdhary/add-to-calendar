@@ -8,65 +8,36 @@
         <input v-model="title" type="text" placeholder="Coffee with Anand">
       </label>
       <label>
-        <span>Date</span>
-        <input v-model="date" type="date">
+        <span>Date and time</span>
+        <input v-model="datetime" type="datetime-local">
       </label>
       <label>
-        <span>Time</span>
-        <input v-model="time" type="time">
-      </label>
-      <label>
-        <span>Duration</span>
+        <span>Duration (minutes)</span>
         <input v-model="duration" type="number">
-      </label>
-      <label>
-        <span>Timezone</span>
-        <select v-model="timezone">
-          <option v-for="(tz, index) in timezones" :key="index">{{tz}}</option>
-        </select>
       </label>
       <h2>Your link</h2>
       <p>Copy and paste this link in an email or message to send this invitation to your guests:</p>
-      <pre>{{location.protocol}}//{{location.hostname}}{{location.port ? ":" + location.port : ""}}/{{urilize(title)}}/{{urilize(date)}}/{{urilize(time)}}/{{urilize(duration)}}/{{urilize(timezone)}}</pre>
-      <a target="_blank" class="button" :href="`${location.protocol}//${location.hostname}${location.port ? ':' + location.port : ''}/${urilize(title)}/${urilize(date)}/${urilize(time)}/${urilize(duration)}/${urilize(timezone)}`">Visit your invite link &rarr;</a>
+      <pre>{{location.protocol}}//{{location.hostname}}{{location.port ? ":" + location.port : ""}}/{{urilize(title)}}/{{urilize(new Date(datetime).getTime() / 1000 || 0)}}/{{urilize(duration)}}</pre>
+      <a target="_blank" class="button" :href="`${location.protocol}//${location.hostname}${location.port ? ':' + location.port : ''}/${urilize(title)}/${urilize(new Date(datetime).getTime() / 1000 || 0)}/${urilize(duration)}`">Visit your invite link &rarr;</a>
     </form>
   </div>
 </template>
 
 <script>
-import ct from "countries-and-timezones";
 export default {
   name: "LinkGenerator",
   data: () => {
     return {
       title: "",
-      date: "",
+      datetime: "",
       time: "",
-      timezone: "",
       duration: 0,
-      location: window.location,
-      timezones: []
+      location: window.location
     };
-  },
-  mounted() {
-    const timezones = ct.getAllTimezones();
-    this.timezones = Object.keys(timezones);
-    fetch(
-      "https://api.ipgeolocation.io/ipgeo?apiKey=14aadc9992e34663be5676388611b3a4"
-    )
-      .then(response =>
-        response
-          .json()
-          .then(json => {
-            this.timezone = json.time_zone.name;
-          })
-          .catch(() => {})
-      )
-      .catch(() => {});
   },
   methods: {
     urilize(x) {
-      return btoa(encodeURIComponent(x));
+      return encodeURIComponent(x);
     }
   }
 };

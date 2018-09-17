@@ -1,11 +1,11 @@
 <template>
   <div class="invite">
     <div>title: {{event.title}}</div>
-    <div>date: {{event.date}}</div>
-    <div>time: {{event.time}}</div>
+    <div>datetime: {{event.datetime}}</div>
     <div>duration: {{event.duration}}</div>
     <div>timezone: {{event.timezone}}</div>
     <p><a target="_blank" :href="links.google">Add to your Google Calendar</a></p>
+    {{links}}
     <p><button>Download iCal (.ics) file</button></p>
   </div>
 </template>
@@ -17,8 +17,7 @@ export default {
     return {
       event: {
         title: "",
-        date: "",
-        time: "",
+        datetime: "",
         timezone: ""
       },
       links: {
@@ -28,13 +27,12 @@ export default {
   },
   methods: {
     unurize(x) {
-      return decodeURIComponent(atob(x));
+      return decodeURIComponent(x);
     }
   },
   mounted() {
     this.event.title = this.unurize(this.$route.params.title);
-    this.event.date = this.unurize(this.$route.params.date);
-    this.event.time = this.unurize(this.$route.params.time);
+    this.event.datetime = this.unurize(this.$route.params.datetime);
     this.event.timezone = this.unurize(this.$route.params.timezone);
     this.event.duration = this.unurize(this.$route.params.duration);
     this.links.google = google(this.event);
