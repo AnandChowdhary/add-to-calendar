@@ -4,15 +4,43 @@
     <div>datetime: {{event.datetime}}</div>
     <div>duration: {{event.duration}}</div>
     <div>location: {{event.location}}</div>
-    <p><a target="_blank" :href="links.google">Add to your Google Calendar</a></p>
-    <p><a target="_blank" :href="links.outlook">Add to Microsoft Outlook</a></p>
-    <p><a target="_blank" :href="links.yahoo">Add to Yahoo! Calendar</a></p>
-    <p><button @click="iCalDownload">Download iCal (.ics) file</button></p>
+    <div class="options">
+      <button @click="iCalDownload">
+        <div class="icon"><FontAwesomeIcon :icon="[`fab`, `apple`]" /></div>
+        <div class="label">Apple<br>Calendar</div>
+      </button>
+      <a :href="links.google" target="_blank">
+        <div class="icon"><FontAwesomeIcon :icon="[`fab`, `google`]" /></div>
+        <div class="label">Google<br>Calendar</div>
+      </a>
+      <a :href="links.outlook" target="_blank">
+        <div class="icon"><FontAwesomeIcon :icon="[`fab`, `microsoft`]" /></div>
+        <div class="label">Microsoft<br>Outlook</div>
+      </a>
+      <a :href="links.yahoo" target="_blank">
+        <div class="icon"><FontAwesomeIcon :icon="[`fab`, `yahoo`]" /></div>
+        <div class="label">Yahoo!<br>Calendar</div>
+      </a>
+      <button @click="iCalDownload">
+        <div class="icon"><FontAwesomeIcon :icon="[`fas`, `calendar-check`]" /></div>
+        <div class="label">Download<br>Invite (.ics)</div>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import ct from "countries-and-timezones";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faApple,
+  faGoogle,
+  faMicrosoft,
+  faYahoo
+} from "@fortawesome/free-brands-svg-icons";
+import { faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+library.add(faApple, faGoogle, faMicrosoft, faYahoo, faCalendarCheck);
 const google = () =>
   import(/* webpackChunkName: "google" */ "../modules/google");
 const outlook = () =>
@@ -76,6 +104,9 @@ export default {
     this.event.datetime = this.unurize(this.$route.params.datetime);
     this.event.duration = this.unurize(this.$route.params.duration);
     this.event.location = this.unurize(this.$route.params.location);
+  },
+  components: {
+    FontAwesomeIcon
   }
 };
 </script>
@@ -87,11 +118,27 @@ export default {
   background-color: #fff;
   padding: 3rem;
 }
-button {
-  font: inherit;
-  border: 1px solid #ddd;
-  background-color: transparent;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
+.options {
+  display: flex;
+  > * {
+    flex: 1;
+    display: block;
+    padding: 0;
+    font: inherit;
+    background: none;
+    border: none;
+    color: inherit;
+    text-decoration: none;
+    text-align: center;
+    padding: 1rem 0;
+    border-radius: 0.25rem;
+    &:hover {
+      background-color: whitesmoke;
+    }
+  }
+}
+.icon {
+  font-size: 200%;
+  margin-bottom: 0.5rem;
 }
 </style>
