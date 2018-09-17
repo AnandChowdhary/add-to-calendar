@@ -5,6 +5,7 @@
     <div>duration: {{event.duration}}</div>
     <div>location: {{event.location}}</div>
     <p><a target="_blank" :href="links.google">Add to your Google Calendar</a></p>
+    <p><a target="_blank" :href="links.outlook">Add to Microsoft Outlook</a></p>
     {{links}}
     <p><button>Download iCal (.ics) file</button></p>
   </div>
@@ -13,6 +14,7 @@
 <script>
 import ct from "countries-and-timezones";
 import google from "../modules/google";
+import outlook from "../modules/outlook";
 export default {
   data: () => {
     return {
@@ -22,7 +24,8 @@ export default {
         location: ""
       },
       links: {
-        google: ""
+        google: "",
+        outlook: ""
       }
     };
   },
@@ -43,6 +46,7 @@ export default {
           .then(json => {
             this.timezone = json.time_zone.name;
             this.links.google = google(this.event, this.timezone);
+            this.links.outlook = outlook(this.event, this.timezone);
           })
           .catch(() => {})
       )

@@ -5,11 +5,11 @@ export default ({ title, datetime, duration, location }, timezone) => {
     parseInt(moment.tz(datetime * 1000, timezone).format("x")),
     "UTC"
   );
-  return `https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(
+  return `https://outlook.live.com/owa/?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(
     title
-  )}&dates=${day.format("YYYYMMDD")}T${day.format("HHmmss")}Z/${day
+  )}&startdt=${day.format("YYYYMMDD")}T${day.format("HHmmss")}Z&enddt=${day
     .add(duration, "minutes")
     .format("YYYYMMDD")}T${day.format("HHmmss")}Z&location=${encodeURIComponent(
     location
-  )}&pli=1&sf=true&output=xml`;
+  )}&body=&allday=`;
 };
