@@ -7,8 +7,11 @@ notifications:
 node_js:
   - '9'
 after_success:
-  - npm install -g travis-deploy-once@4
-  - travis-deploy-once "yarn deploy"
+  - yarn build && mv dist/index.html dist/200.html && echo addtocalendar.ga > dist/CNAME
+deploy:
+  provider: surge
+  project: ./dist/
+  domain: addtocalendar.ga
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
