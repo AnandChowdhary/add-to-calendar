@@ -1,0 +1,9 @@
+{
+  "name": "calendar-invitation",
+  "version": "1.0.0",
+  "description": "Send calendar invitation links to your guests",
+  "main": "src/index.js",
+  "repository": "https://github.com/AnandChowdhary/calendar-invitation",
+  "author": "Anand Chowdhary <anandchowdhary@gmail.com>",
+  "license": "MIT"
+}
