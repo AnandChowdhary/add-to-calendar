@@ -104,10 +104,13 @@ export default {
           .catch(() => {})
       )
       .catch(() => {});
-    this.event.title = this.unurize(this.$route.params.title);
-    this.event.datetime = this.unurize(this.$route.params.datetime);
-    this.event.duration = this.unurize(this.$route.params.duration);
-    this.event.location = this.unurize(this.$route.params.location);
+    const path = this.$route.path.split("/");
+    this.event.title = path.length >= 1 && this.unurize(path[1]);
+    this.event.datetime = path.length >= 2 && this.unurize(path[2]);
+    this.event.duration = path.length >= 3 && this.unurize(path[3]);
+    this.event.location = path.length >= 4 && this.unurize(path[4]);
+    this.event.md5 = path.length >= 5 && this.unurize(path[5]);
+    document.title = "Invitation: " + this.event.title;
   },
   components: {
     FontAwesomeIcon
