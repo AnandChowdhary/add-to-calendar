@@ -22,8 +22,8 @@
       </label>
       <h2>Your link</h2>
       <p>Copy and paste this link in an email or message to send this invitation to your guests:</p>
-      <pre>{{url.protocol}}//{{url.hostname}}{{url.port ? ":" + url.port : ""}}/{{urilize(title || 'Event')}}/{{urilize(new Date(datetime).getTime() / 1000 || 0)}}/{{urilize(duration)}}/{{urilize(location || 'Location')}}</pre>
-      <a target="_blank" class="button" :href="`${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}/${urilize(title || 'Event')}/${urilize(new Date(datetime).getTime() / 1000 || 0)}/${urilize(duration)}/${urilize(location || 'Location')}`">Visit your invite link &rarr;</a>
+      <pre>{{url.protocol}}//{{url.hostname}}{{url.port ? ":" + url.port : ""}}/{{urilize(title || 'Event')}}/{{urilize(new Date(datetime).getTime() / 1000 || 0)}}/{{urilize(duration)}}/{{urilize(location || 'Location')}}/{{md5((title || 'Event')+(new Date(datetime).getTime() / 1000 || 0)+(duration)+(location || 'Location'))}}</pre>
+      <a target="_blank" class="button" :href="`${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}/${urilize(title || 'Event')}/${urilize(new Date(datetime).getTime() / 1000 || 0)}/${urilize(duration)}/${urilize(location || 'Location')}/${md5((title || 'Event')+(new Date(datetime).getTime() / 1000 || 0)+(duration)+(location || 'Location'))}`">Visit your invite link &rarr;</a>
     </form>
   </div>
 </template>
@@ -41,6 +41,7 @@ Date.prototype.toDatetimeLocal = function toDatetimeLocal() {
   return YYYY + "-" + MM + "-" + DD + "T" + HH + ":" + II;
 };
 
+import md5 from "md5";
 export default {
   name: "LinkGenerator",
   data: () => {
@@ -55,6 +56,9 @@ export default {
   methods: {
     urilize(x) {
       return encodeURIComponent(x);
+    },
+    md5(x) {
+      return md5(x);
     }
   }
 };

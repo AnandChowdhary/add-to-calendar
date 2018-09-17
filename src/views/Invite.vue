@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import md5 from "md5";
 import ct from "countries-and-timezones";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faYahoo } from "@fortawesome/free-brands-svg-icons";
@@ -105,11 +106,22 @@ export default {
       )
       .catch(() => {});
     const path = this.$route.path.split("/");
-    this.event.title = path.length >= 1 && this.unurize(path[1]);
-    this.event.datetime = path.length >= 2 && this.unurize(path[2]);
-    this.event.duration = path.length >= 3 && this.unurize(path[3]);
-    this.event.location = path.length >= 4 && this.unurize(path[4]);
-    this.event.md5 = path.length >= 5 && this.unurize(path[5]);
+    this.event.title = path.length >= 1 ? this.unurize(path[1]) : "";
+    this.event.datetime = path.length >= 2 ? this.unurize(path[2]) : "";
+    this.event.duration = path.length >= 3 ? this.unurize(path[3]) : "";
+    this.event.location = path.length >= 4 ? this.unurize(path[4]) : "";
+    this.event.md5 = path.length >= 5 ? this.unurize(path[5]) : "";
+    if (this.event.md5) {
+      const calculatedHash = md5(
+        this.event.title +
+          this.event.datetime +
+          this.event.duration +
+          this.event.location
+      );
+      if (calculatedHash !== this.event.md5) {
+        this.$router.replace("/");
+      }
+    }
     document.title = "Invitation: " + this.event.title;
   },
   components: {
