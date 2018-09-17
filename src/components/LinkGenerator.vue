@@ -22,8 +22,8 @@
       </label>
       <h2>Your link</h2>
       <p>Copy and paste this link in an email or message to send this invitation to your guests:</p>
-      <pre>{{url.protocol}}//{{url.hostname}}{{url.port ? ":" + url.port : ""}}/{{urilize(title || 'Event')}}/{{urilize(new Date(datetime).getTime() / 1000 || 0)}}/{{urilize(duration)}}/{{urilize(location)}}</pre>
-      <a target="_blank" class="button" :href="`${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}/${urilize(title || 'Event')}/${urilize(new Date(datetime).getTime() / 1000 || 0)}/${urilize(duration)}/${urilize(location)}`">Visit your invite link &rarr;</a>
+      <pre>{{url.protocol}}//{{url.hostname}}{{url.port ? ":" + url.port : ""}}/{{urilize(title || 'Event')}}/{{urilize(new Date(datetime).getTime() / 1000 || 0)}}/{{urilize(duration)}}/{{urilize(location || 'Location')}}</pre>
+      <a target="_blank" class="button" :href="`${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}/${urilize(title || 'Event')}/${urilize(new Date(datetime).getTime() / 1000 || 0)}/${urilize(duration)}/${urilize(location || 'Location')}`">Visit your invite link &rarr;</a>
     </form>
   </div>
 </template>

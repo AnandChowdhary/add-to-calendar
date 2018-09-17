@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import ct from "countries-and-timezones";
 import google from "../modules/google";
 export default {
   data: () => {
@@ -31,11 +32,25 @@ export default {
     }
   },
   mounted() {
+    const timezones = ct.getAllTimezones();
+    this.timezones = Object.keys(timezones);
+    fetch(
+      "https://api.ipgeolocation.io/ipgeo?apiKey=14aadc9992e34663be5676388611b3a4"
+    )
+      .then(response =>
+        response
+          .json()
+          .then(json => {
+            this.timezone = json.time_zone.name;
+            this.links.google = google(this.event, this.timezone);
+          })
+          .catch(() => {})
+      )
+      .catch(() => {});
     this.event.title = this.unurize(this.$route.params.title);
     this.event.datetime = this.unurize(this.$route.params.datetime);
     this.event.duration = this.unurize(this.$route.params.duration);
     this.event.location = this.unurize(this.$route.params.location);
-    this.links.google = google(this.event);
   }
 };
 </script>
