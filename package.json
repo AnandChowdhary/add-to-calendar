@@ -8,7 +8,8 @@
     "deploy": "yarn build && mv dist/index.html dist/200.html && echo addtocalendar.ga > dist/CNAME && surge dist/.",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:e2e": "vue-cli-service test:e2e",
+    "test": "yarn test:unit"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
