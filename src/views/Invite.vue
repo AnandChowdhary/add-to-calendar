@@ -7,17 +7,17 @@
     <p><a target="_blank" :href="links.google">Add to your Google Calendar</a></p>
     <p><a target="_blank" :href="links.outlook">Add to Microsoft Outlook</a></p>
     <p><a target="_blank" :href="links.yahoo">Add to Yahoo! Calendar</a></p>
-    {{links}}
-    <p><button>Download iCal (.ics) file</button></p>
+    <p><button @click="iCalDownload">Download iCal (.ics) file</button></p>
   </div>
 </template>
 
 <script>
 import ct from "countries-and-timezones";
-import google from "../modules/google";
-import outlook from "../modules/outlook";
-import yahoo from "../modules/yahoo";
-import ical from "../modules/ical";
+const google = () =>
+  import(/* webpackChunkName: "google" */ "../modules/google");
+const outlook = () =>
+  import(/* webpackChunkName: "outlook" */ "../modules/outlook");
+const yahoo = () => import(/* webpackChunkName: "yahoo" */ "../modules/yahoo");
 export default {
   data: () => {
     return {
@@ -37,6 +37,21 @@ export default {
   methods: {
     unurize(x) {
       return decodeURIComponent(x);
+    },
+    iCalDownload() {
+      import(/* webpackChunkName: "ical" */ "../modules/ical").then(ical => {
+        this.links.ical = ical.default.call(this, this.event, this.timezone);
+        import(/* webpackChunkName: "downloadjs" */ "downloadjs").then(
+          download => {
+            download.default.call(
+              this,
+              this.links.ical,
+              "invite.ics",
+              "text/calendar"
+            );
+          }
+        );
+      });
     }
   },
   mounted() {
@@ -53,7 +68,6 @@ export default {
             this.links.google = google(this.event, this.timezone);
             this.links.outlook = outlook(this.event, this.timezone);
             this.links.yahoo = yahoo(this.event, this.timezone);
-            this.links.ical = ical(this.event, this.timezone);
           })
           .catch(() => {})
       )
@@ -70,6 +84,8 @@ export default {
 .invite {
   margin: 10vh auto;
   max-width: 720px;
+  background-color: #fff;
+  padding: 3rem;
 }
 button {
   font: inherit;

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "countries-and-timezones": "^1.0.1",
+    "downloadjs": "^1.4.7",
     "ical-generator": "^1.1.1",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",

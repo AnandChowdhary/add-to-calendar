@@ -64,6 +64,8 @@ export default {
 .hello {
   max-width: 500px;
   margin: 10vh auto;
+  background-color: #fff;
+  padding: 3rem;
 }
 form {
   text-align: left;

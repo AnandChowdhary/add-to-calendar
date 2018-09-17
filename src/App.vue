@@ -12,6 +12,9 @@
   text-align: center;
   color: #2c3e50;
 }
+body {
+  background-color: whitesmoke;
+}
 #nav {
   padding: 30px;
   a {
