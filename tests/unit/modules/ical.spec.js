@@ -1,6 +1,6 @@
 import ical from "@/modules/ical";
 describe("ical.js", () => {
-  it("renders props.msg when passed", () => {
+  it("returns the right iCal contents", () => {
     expect(
       ical(
         {

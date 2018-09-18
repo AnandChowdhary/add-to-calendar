@@ -1,6 +1,6 @@
 import yahoo from "@/modules/yahoo";
 describe("yahoo.js", () => {
-  it("renders props.msg when passed", () => {
+  it("returns the right Add to Yahoo! Calendar URL", () => {
     expect(
       yahoo(
         {

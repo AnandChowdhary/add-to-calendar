@@ -1,6 +1,6 @@
 import google from "@/modules/google";
 describe("google.js", () => {
-  it("renders props.msg when passed", () => {
+  it("returns the right Add to Google Calendar URL", () => {
     expect(
       google(
         {

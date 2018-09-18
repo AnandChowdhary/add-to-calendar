@@ -1,6 +1,6 @@
 import outlook from "@/modules/outlook";
 describe("outlook.js", () => {
-  it("renders props.msg when passed", () => {
+  it("returns the right Add to Microsoft Outlook URL", () => {
     expect(
       outlook(
         {
