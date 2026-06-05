@@ -29,6 +29,7 @@ export default {
 }
 body {
   background-color: whitesmoke;
+  margin: 0;
 }
 #nav {
   padding: 30px;
