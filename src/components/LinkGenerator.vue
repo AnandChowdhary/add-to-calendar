@@ -126,4 +126,37 @@ pre {
   overflow-x: auto;
   background-color: whitesmoke;
 }
+
+@media (max-width: 600px) {
+  .hello {
+    min-height: 100vh;
+    margin: 0;
+    padding: 1.5rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  input,
+  button,
+  textarea,
+  .button,
+  select,
+  pre {
+    min-width: 0;
+  }
+
+  pre {
+    height: auto;
+    min-height: 3rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    padding: 0.75rem 1rem;
+    white-space: pre-wrap;
+  }
+}
 </style>
